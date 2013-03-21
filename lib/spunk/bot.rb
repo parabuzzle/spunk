@@ -4,7 +4,7 @@ require 'openssl'
 module Spunk
   class Bot
     attr_accessor :nickname, :server, :joined_rooms, :ssl, :server, :rooms, :token
-    attr_reader :processors, :request_processors, :response_processors
+    attr_reader :processors, :request_processors, :response_processors, :hostname
 
     def initialize(options = {})
       options.each do |option, value|

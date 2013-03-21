@@ -7,8 +7,7 @@ module Spunk
    
    def Helpers.hashify(bot, origin, command, msg)
      hash = {:bot=>bot, :origin=>origin, :command => command, :msg => msg, :room => nil}
-     command.match(/(\#\S+\b)/i)
-     hash[:room] = $1
+     hash[:room] = Helpers.parse_room(command)
      return hash
    end
   end
