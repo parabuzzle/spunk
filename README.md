@@ -1,4 +1,4 @@
-cupcake
+Spunk
 =======
 
-Irc Bot Framework based on Sprinkles.
+IrcBot Framework based on Sprinkles.
