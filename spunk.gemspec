@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'spunk'
-  s.version     = '0.0.2'
+  s.version     = '0.0.3'
   s.date        = '2013-03-21'
   s.summary     = "A simple little IRCbot framework based on Sprinkles"
   s.description = "A simple little IRCbot framework based on Sprinkles. Uses IOC pattern for defining parsers."

@@ -8,6 +8,14 @@ module Spunk
             bot.join_room(room)
           end
         end
+        if command =~ /^KICK (#\S+)\W(.*)\W?/
+          # Remove from array of joined_rooms when kicked
+          nick = $2
+          if bot.nickname == nick
+            room = [$1]
+            bot.joined_rooms -= room
+          end
+        end
       end
     end
   end
