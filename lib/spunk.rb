@@ -6,5 +6,5 @@ require 'spunk/helpers'
 require 'spunk/origin'
 require 'spunk/bot'
 
-SPUNK_VERSION = '0.0.1'
+SPUNK_VERSION = '0.1.0'
 

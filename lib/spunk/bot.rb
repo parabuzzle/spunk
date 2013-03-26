@@ -1,5 +1,6 @@
 require 'socket'
 require 'openssl'
+require 'mutex_m'
 
 module Spunk
   class Bot
@@ -7,6 +8,7 @@ module Spunk
     attr_reader :processors, :request_processors, :response_processors, :hostname
 
     def initialize(options = {})
+      self.extend Mutex_m
       options.each do |option, value|
         instance_variable_set("@#{option}", value)
       end

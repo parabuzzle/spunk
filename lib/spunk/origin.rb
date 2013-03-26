@@ -9,6 +9,10 @@ module Spunk
     def nickname
       @prefix.to_s.split(/!/, 2)[0]
     end
+    
+    def username
+      @prefix.to_s.split(/!/, 2)[1].split("@").first
+    end
 
     def to_s
       case
