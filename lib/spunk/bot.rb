@@ -78,7 +78,8 @@ module Spunk
 
       (@request_processors + @processors).each do |processor|
         begin
-          processor.call(self, origin, command, parameters)
+          hash = Helpers.hashify(self, origin, command, parameters)
+          processor.call(hash)
         rescue => e
           puts e.class.name + ": " + e.message
           puts e.backtrace.join("\n")
@@ -89,7 +90,8 @@ module Spunk
     def process_response(origin, command, parameters)
       (@response_processors + @processors).each do |processor|
         begin
-          processor.call(self, origin, command, parameters)
+          hash = Helpers.hashify(self, origin, command, parameters)
+          processor.call(hash)
         rescue => e
           puts e.class.name + ": " + e.message
           puts e.backtrace.join("\n")

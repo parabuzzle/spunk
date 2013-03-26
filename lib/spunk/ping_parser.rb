@@ -1,9 +1,9 @@
 module Spunk
   module Processor
     class Ping
-      def call(bot, origin, command, parameters)
-        if command =~ /^PING$/
-          bot.send_message("PONG :#{parameters}")
+      def call(hash)
+        if hash[:command] =~ /^PING$/
+          hash[:bot].send_message("PONG :#{hash[:parameters]}")
         end
       end
     end

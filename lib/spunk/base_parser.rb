@@ -1,9 +1,14 @@
 module Spunk
   module Processor
     class Base
-      def call(bot, origin, command, parameters)
+      def call(hash)
+        bot = hash[:bot]
+        command = hash[:command]
+        parameters = hash[:parameters]
+        origin = hash[:origin]
+        
         if command =~ /^INVITE #{bot.nickname}$/i
-          room = Spunk::Helpers.parse_room(parameters)
+          room = hash[:room]
           if room
             bot.join_room(room)
           end
