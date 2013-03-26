@@ -8,8 +8,8 @@ module Spunk
      return $1
    end
    
-   def Helpers.hashify(bot, origin, command, parameters)
-     hash = {:bot=>bot, :origin=>origin, :command => command, :msg => parameters, :parameters=>parameters, :room => nil}
+   def Helpers.hashify(bot, origin, command, parameters, logger)
+     hash = {:bot=>bot, :origin=>origin, :command => command, :msg => parameters, :parameters=>parameters, :room => nil, :logger=>logger}
      hash[:room] = Helpers.parse_room(command)
      return hash
    end

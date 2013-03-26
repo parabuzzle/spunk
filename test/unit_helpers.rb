@@ -1,6 +1,6 @@
 class TestHelpers < Test::Unit::TestCase
   def setup
-    @hash = Spunk::Helpers.hashify("bot", "origin", "#test-room command", "msg")
+    @hash = Spunk::Helpers.hashify("bot", "origin", "#test-room command", "msg", "logger")
   end
   
   def test_parse_room
@@ -14,6 +14,7 @@ class TestHelpers < Test::Unit::TestCase
     assert_match @hash[:command], "#test-room command"
     assert_match @hash[:msg], "msg"
     assert_match @hash[:room], "#test-room"
+    assert_match @hash[:logger], "logger"
   end  
   
 end

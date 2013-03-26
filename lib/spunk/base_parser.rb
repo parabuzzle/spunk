@@ -8,7 +8,8 @@ module Spunk
         origin = hash[:origin]
         
         if command =~ /^INVITE #{bot.nickname}$/i
-          room = hash[:room]
+          room = Helpers.parse_room(hash[:parameters])
+          hash[:logger].debug "Recieved invite for room #{room}"
           if room
             bot.join_room(room)
           end

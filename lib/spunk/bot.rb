@@ -9,7 +9,7 @@ module Spunk
     attr_reader :processors, :request_processors, :response_processors, :hostname
 
     def initialize(options = {})
-      self.extend Mutex_m
+      #self.extend Mutex_m
       options.each do |option, value|
         instance_variable_set("@#{option}", value)
       end
@@ -77,7 +77,6 @@ module Spunk
     end
 
     def parse_message(message)
-      @logger.debug "parse_message = #{message}"
       prefix, message = if message =~ /^\:([^\ ]*) (.*)/
         message.scan(/^\:([^\ ]*) (.*)/)[0]
       else
@@ -92,11 +91,10 @@ module Spunk
       origin = if !prefix.nil? && prefix != ""
         Origin.new(prefix)
       end
-
+      hash = Helpers.hashify(self, origin, command, parameters, @logger)
+      @logger.debug "Processing request: origin=#{hash[:origin]} :: command=#{hash[:command]} :: parameters=#{hash[:parameters]}"
       (@request_processors + @processors).each do |processor|
         begin
-          hash = Helpers.hashify(self, origin, command, parameters)
-          @logger.debug "Processing request: origin=#{hash[:origin]} :: command=#{hash[:command]} :: parameters=#{hash[:parameters]}"
           processor.call(hash)
         rescue => e
           puts e.class.name + ": " + e.message
@@ -108,7 +106,7 @@ module Spunk
     def process_response(origin, command, parameters)
       (@response_processors + @processors).each do |processor|
         begin
-          hash = Helpers.hashify(self, origin, command, parameters)
+          hash = Helpers.hashify(self, origin, command, parameters, @logger)
           processor.call(hash)
         rescue => e
           puts e.class.name + ": " + e.message
