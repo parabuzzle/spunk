@@ -24,17 +24,17 @@ module Spunk
       add_request_processor(Spunk::Processor::Ping.new)
       add_request_processor(Spunk::Processor::Base.new)
       @rooms = options[:rooms] ||= []
-      if params[:logger].class == String
-        @logger = Logger.new(params[:logger])
+      if options[:logger].class == String
+        @logger = Logger.new(options[:logger])
         @logger.level = Logger::INFO
-      elsif params[:logger].nil?
+      elsif options[:logger].nil?
         @logger = Logger.new(STDOUT)
         @logger.level = Logger::INFO
-      elsif params[:logger].class == Hash
-        @logger = Logger.new(params[:logger][:file])
-        @logger.level = params[:logger][:level] ||= Logger::INFO
-      elsif params[:logger].class == Logger
-        @logger = params[:logger]
+      elsif options[:logger].class == Hash
+        @logger = Logger.new(options[:logger][:file])
+        @logger.level = options[:logger][:level] ||= Logger::INFO
+      elsif options[:logger].class == Logger
+        @logger = options[:logger]
       end
     end
 
