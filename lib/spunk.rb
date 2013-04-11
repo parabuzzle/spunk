@@ -5,6 +5,7 @@ require 'spunk/ping_parser'
 require 'spunk/helpers'
 require 'spunk/origin'
 require 'spunk/bot'
+require 'spunk/spunk_exceptions'
 
-SPUNK_VERSION = '0.1.0'
+SPUNK_VERSION = '0.1.1'
 

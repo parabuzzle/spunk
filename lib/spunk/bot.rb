@@ -1,6 +1,5 @@
 require 'socket'
 require 'openssl'
-require 'mutex_m'
 require 'logger'
 
 module Spunk
@@ -9,7 +8,6 @@ module Spunk
     attr_reader :processors, :request_processors, :response_processors, :hostname
 
     def initialize(options = {})
-      #self.extend Mutex_m
       options.each do |option, value|
         instance_variable_set("@#{option}", value)
       end
@@ -134,7 +132,11 @@ module Spunk
 
     def connect
       @logger.info "Starting connection to #{@server[:hostname]}:#{@server[:port]}"
-      @socket = TCPSocket.new(@server[:hostname], @server[:port])
+      begin
+        @socket = TCPSocket.new(@server[:hostname], @server[:port])
+      rescue
+        raise SpunkException::BotException.new "Unable to establish connection"
+      end
       if @ssl == true
         @logger.debug "Detected SSL connection"
         @ssl_context = OpenSSL::SSL::SSLContext.new()
@@ -170,7 +172,9 @@ module Spunk
 
     def say(to, message)
       @logger.debug "saying message: PRIVMSG #{to} :#{message}"
-      send_message "PRIVMSG #{to} :#{message}"
+      unless send_message "PRIVMSG #{to} :#{message}"
+        raise SpunkException::BotException.new "Unable to send message"
+      end
     end
 
     def send_message(message)

@@ -7,7 +7,7 @@ module Spunk
     end
 
     def nickname
-      @prefix.to_s.split(/!/, 2)[0]
+      @prefix.to_s.split(/!/, 2).first
     end
     
     def username
@@ -20,8 +20,6 @@ module Spunk
         nickname
       when @prefix
         @prefix
-      else
-        "-unknown-"
       end
     end
   end
