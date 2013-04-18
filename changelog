@@ -1,0 +1,3 @@
+version 0.1.2
+ * added support for nickserv authentication
+ * added switch for allowing the bot to be invited

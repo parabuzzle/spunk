@@ -4,15 +4,20 @@ require 'logger'
 
 module Spunk
   class Bot
-    attr_accessor :nickname, :server, :joined_rooms, :ssl, :server, :rooms, :token, :logger
+    attr_accessor :nickname, :server, :joined_rooms, :ssl, :server, :rooms, :token, :logger, :nickserv_password, :invite_ok
     attr_reader :processors, :request_processors, :response_processors, :hostname
 
     def initialize(options = {})
       options.each do |option, value|
         instance_variable_set("@#{option}", value)
       end
-      @token = options[:token] || nil
-      @ssl = options[:ssl] || false
+      @token = options[:token] ||= nil
+      @ssl = options[:ssl] ||= false
+      if options[:invite_ok].nil?
+        options[:invite_ok] = true
+      end
+      @invite_ok = options[:invite_ok]
+      @nickserv_password = options[:nickserv_password]
       @processors =  []
       @request_processors = []
       @response_processors = []
@@ -161,6 +166,9 @@ module Spunk
       end
       send_message "NICK #{@nickname}"
       send_message "USER #{@username} #{@hostname} bla :#{@fullname}"
+      unless @nickserv_password.nil?
+        send_message "PRIVMSG NickServ :identify #{@nickserv_password}"
+      end
     end
 
     def join_room(room, password = nil)
