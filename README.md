@@ -1,5 +1,6 @@
 Spunk
 =======
+[![Gem Version](https://badge.fury.io/rb/spunk.png)](http://badge.fury.io/rb/spunk)
 
 IrcBot Framework based on Sprinkles.
 
