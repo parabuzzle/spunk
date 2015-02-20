@@ -67,13 +67,13 @@ module Spunk
         sleep 0.25
       end
     end
-    
+
     def setup_connection
       connect
       authenticate
       @rooms.each { |room| join_room room }
     end
-    
+
     def run
       setup_connection
       start
@@ -189,6 +189,7 @@ module Spunk
       @logger.debug "Sending message: #{message}"
       command, parameters = message.strip.split(/\:/, 2)
       process_response(origin, command.to_s.strip, parameters)
+      return true
     end
   end
 end
